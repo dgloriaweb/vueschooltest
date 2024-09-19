@@ -29,7 +29,7 @@ class Functions
         // change it back after the test to 5 minutes
         // $updatedUsers = User::where('name', 'Wilbert Dach')->get(); --test 1
         // $updatedUsers = User::where('updated_at', '>', '2024-09-19 21:00:00')->get(); --test 2
-        $dateInterval = (date('Y-m-d H:i:s', (strtotime('-55 minutes', strtotime(now())))));
+        $dateInterval = (date('Y-m-d H:i:s', (strtotime('-5 minutes', strtotime(now())))));
         $updatedUsers = User::where('updated_at', '>', $dateInterval)->get();
         //define json
         $updateJson = ["batches"];
