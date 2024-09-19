@@ -1,6 +1,7 @@
 <?php
 
 namespace Tests\Feature;
+use App\MyClasses\Functions;
 
 // use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -19,7 +20,7 @@ class TimezoneChangeTest extends TestCase
             ->inRandomOrder()
             ->first();
         //change the timezone to match the standard name
-        $tzdata = $this->changeTimezone($randomUser);
+        $tzdata = Functions::changeTimezone($randomUser);
 
         //assert that the field value is in the array of available names
         $tzarray = ["Europe/Amsterdam", "America/Los_Angeles", "Europe/London"];
@@ -32,27 +33,11 @@ class TimezoneChangeTest extends TestCase
             ->inRandomOrder()
             ->first();
         //change the timezone to match the standard name
-        $tzdata = $this->changeTimezone($randomUser);
+        $tzdata = Functions::changeTimezone($randomUser);
 
         //assert that the field value is in the array of available names
         $tzarray = ["blue", "white"];
         $this->assertNotContains($tzdata, $tzarray);
     }
-    public function changeTimezone($randomuser)
-    {
-        $timezone = null;
-        $tz = $randomuser->timezone;
-        switch ($tz) {
-            case ("GMT"):
-               $timezone = "Europe/London";
-                break;
-            case ("CST"):
-               $timezone = "America/Los_Angeles";
-                break;
-            case ("GMT+1"):
-               $timezone = "America/Los_Angeles";
-                break;
-        }
-        return $timezone;
-    }
+    
 }
