@@ -23,7 +23,8 @@ class Functions
         }
         return $timezone;
     }
-    public static function CreateUserJson(){
+    public static function CreateUserJson()
+    {
         // get all the users where the updated_at value is from the last 5 minutes
         // change it back after the test to 5 minutes
         // $updatedUsers = User::where('name', 'Wilbert Dach')->get(); --test 1
@@ -31,14 +32,15 @@ class Functions
         $dateInterval = (date('Y-m-d H:i:s', (strtotime('-55 minutes', strtotime(now())))));
         $updatedUsers = User::where('updated_at', '>', $dateInterval)->get();
         //define json
-        $updateJson = null;
+        $updateJson = ["batches"];
         // turn updaedusers into json
         foreach ($updatedUsers as $user) {
             // do the timezone conversion
             $transferredTimeZone = Functions::changeTimezone($user);
-
+            
             if (isset($user->name) || isset($user->email)) {
-                $updateJson["batches"][]["subscribers"] = [
+                $updateJson["batches"]["subscribers"][] =
+                [
                     "name" => $user->name,
                     "email" => $user->email,
                     "timezone" => $transferredTimeZone
