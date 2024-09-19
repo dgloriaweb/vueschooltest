@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\User;
 use Illuminate\Console\Command;
+use Faker\Factory as Faker;
 
 class UpdateUser extends Command
 {
@@ -27,11 +28,12 @@ class UpdateUser extends Command
     public function handle()
     {
         //
-        User::query()->update(
-            [
-                'name' => fake()->name(),
-                'timezone' =>  fake()->randomElement(['CET', 'CST', 'GMT+1'])
-            ]
-        );
+        $faker = Faker::create();
+
+        User::all()->each(function ($user) use ($faker) {
+            $user->name = $faker->name;
+            $user->save();
+        });
+
     }
 }
