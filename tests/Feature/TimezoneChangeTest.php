@@ -19,26 +19,39 @@ class TimezoneChangeTest extends TestCase
             ->inRandomOrder()
             ->first();
         //change the timezone to match the standard name
-        $tzdata = $this->changeTimezone($randomuser);
+        $tzdata = $this->changeTimezone($randomUser);
 
         //assert that the field value is in the array of available names
         $tzarray = ["Europe/Amsterdam", "America/Los_Angeles", "Europe/London"];
-
         $this->assertContains($tzdata, $tzarray);
+    }
+    public function test_we_cannot_change_timezone_for_api(): void
+    {
+        //get the timezone field from any user
+        $randomUser = DB::table('users')
+            ->inRandomOrder()
+            ->first();
+        //change the timezone to match the standard name
+        $tzdata = $this->changeTimezone($randomUser);
+
+        //assert that the field value is in the array of available names
+        $tzarray = ["blue", "white"];
+        $this->assertNotContains($tzdata, $tzarray);
     }
     public function changeTimezone($randomuser)
     {
         $tz = $randomuser->timezone;
         switch ($tz) {
             case ("GMT"):
-                "Europe/London";
+               $timezone = "Europe/London";
                 break;
             case ("CST"):
-                "America/Los_Angeles";
+               $timezone = "America/Los_Angeles";
                 break;
             case ("GMT+1"):
-                "America/Los_Angeles";
+               $timezone = "America/Los_Angeles";
                 break;
         }
+        return $timezone;
     }
 }
