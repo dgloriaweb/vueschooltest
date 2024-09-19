@@ -40,6 +40,7 @@ class TimezoneChangeTest extends TestCase
     }
     public function changeTimezone($randomuser)
     {
+        $timezone = null;
         $tz = $randomuser->timezone;
         switch ($tz) {
             case ("GMT"):
