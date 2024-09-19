@@ -39,7 +39,7 @@ class Functions
             $transferredTimeZone = Functions::changeTimezone($user);
             
             if (isset($user->name) || isset($user->email)) {
-                $updateJson["batches"]["subscribers"][] =
+                $updateJson["batches"][]["subscribers"][] =
                 [
                     "name" => $user->name,
                     "email" => $user->email,
