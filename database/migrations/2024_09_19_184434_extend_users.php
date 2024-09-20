@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('timezone');
+            $table->boolean('is_synced', false);
         });
     }
 
