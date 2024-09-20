@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\User;
 use Illuminate\Console\Command;
 use Faker\Factory as Faker;
+use Illuminate\Support\Facades\DB;
 
 class UpdateUser extends Command
 {
@@ -28,12 +29,17 @@ class UpdateUser extends Command
     public function handle()
     {
         //
-        $faker = Faker::create();
+        $randomUser = DB::table('users')
+            ->inRandomOrder()
+            ->first();
 
-        User::all()->each(function ($user) use ($faker) {
-            $user->name = $faker->name;
-            $user->save();
-        });
+        $randomUser->name = 'Paul McCartney';
+        $randomUser->save();
+
+        // User::all()->each(function ($user) use ($faker) {
+        //     $user->name = $faker->name;
+        //     $user->save();
+        // });
 
     }
 }
