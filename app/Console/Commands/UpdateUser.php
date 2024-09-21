@@ -14,7 +14,7 @@ class UpdateUser extends Command
      *
      * @var string
      */
-    protected $signature = 'app:update-user';
+    protected $signature = 'user:update-user';
 
     /**
      * The console command description.
@@ -28,18 +28,16 @@ class UpdateUser extends Command
      */
     public function handle()
     {
-        //
-        $randomUser = DB::table('users')
-            ->inRandomOrder()
-            ->first();
+        // Get a random user using inRandomOrder and first
+        $randomUser = User::inRandomOrder()->first();
 
-        $randomUser->name = 'Paul McCartney';
-        $randomUser->save();
+        if ($randomUser) {
+            $randomUser->name = 'Paul McCartney';
+            $randomUser->save();
 
-        // User::all()->each(function ($user) use ($faker) {
-        //     $user->name = $faker->name;
-        //     $user->save();
-        // });
-
+            $this->info('Random user updated successfully.');
+        } else {
+            $this->error('No users found in the database.');
+        }
     }
 }
