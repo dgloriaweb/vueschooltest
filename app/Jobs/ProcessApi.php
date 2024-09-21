@@ -46,7 +46,6 @@ class ProcessApi implements ShouldQueue
         //     ]);
         // }
 
-        // info('Processed user data: ', $this->userJson);
         info('Processed user data: ');
         foreach ($this->userJson['batches'][0]['subscribers'] as $data) {
             info('{name} {timezone}', ['name' => $data['name']], ['timezone' => $data['timezone']]);

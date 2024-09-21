@@ -27,7 +27,7 @@ class UpdatedUsers
         try {
 
             $userJson = Functions::CreateUpdatedUserJson($event->updatedUser);
-            if($userJson) {
+            if ($userJson) {
                 // store the data in the jobs table
                 ProcessApi::dispatch($userJson);
             }
