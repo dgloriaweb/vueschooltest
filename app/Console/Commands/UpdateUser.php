@@ -29,13 +29,14 @@ class UpdateUser extends Command
     public function handle()
     {
         // Get a random user using inRandomOrder and first
-        $randomUser = User::inRandomOrder()->first();
+        $updatedUser = User::inRandomOrder()->first();
 
-        if ($randomUser) {
-            $randomUser->name = 'Paul McCartney';
-            $randomUser->save();
+        if ($updatedUser) {
+            $updatedUser->name = 'Paul McCartney';
+            $updatedUser->save();
 
             $this->info('Random user updated successfully.');
+            \App\Events\WatchUser::dispatch($updatedUser);
         } else {
             $this->error('No users found in the database.');
         }

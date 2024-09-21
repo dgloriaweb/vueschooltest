@@ -37,17 +37,35 @@ class Functions
         foreach ($updatedUsers as $user) {
             // do the timezone conversion
             $transferredTimeZone = Functions::changeTimezone($user);
-            
+
             if (isset($user->name) || isset($user->email)) {
                 $updateJson["batches"][]["subscribers"][] =
-                [
-                    "name" => $user->name,
-                    "email" => $user->email,
-                    "timezone" => $transferredTimeZone
-                ];
+                    [
+                        "name" => $user->name,
+                        "email" => $user->email,
+                        "timezone" => $transferredTimeZone
+                    ];
             }
         }
         // dd($updateJson);
+        return $updateJson;
+    }
+    public static function CreateUpdatedUserJson(User $updatedUser)
+    {
+        //define json
+        $updateJson = ["batches"];
+        // turn updaedusers into json
+        // do the timezone conversion
+        $transferredTimeZone = Functions::changeTimezone($updatedUser);
+
+        if (isset($updatedUser->name) || isset($updatedUser->email)) {
+            $updateJson["batches"][]["subscribers"][] =
+                [
+                    "name" => $updatedUser->name,
+                    "email" => $updatedUser->email,
+                    "timezone" => $transferredTimeZone
+                ];
+        }
         return $updateJson;
     }
 }
